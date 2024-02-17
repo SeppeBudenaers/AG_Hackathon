@@ -37,16 +37,15 @@
     }
 
     private async void LoadApi(){    
-        response1 = "Loading";
-        HttpClient client = new HttpClient();
-        //HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=sunrise,sunset&timezone=Europe%2FBerlin");
-        HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41");
-        response1 = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(response1);
-        json = System.Text.Json.JsonSerializer.Deserialize<Weather>(response1);
+        var client = HttpFactory.CreateClient("PythonWebServer");
+        var httpResponse = await client.GetAsync("get");
+        @* HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=sunrise,sunset&timezone=Europe%2FBerlin"); *@
+        httpResponse.EnsureSuccessStatusCode();
+        content = await httpResponse.Content.ReadAsStringAsync();
+
         StateHasChanged();
         
-        GetResponse response = JsonSerializer.Deserialize<GetResponse>(content);
+        response = JsonSerializer.Deserialize<GetResponse>(content);
 
         Console.WriteLine(response.Heart_Rate);
     }

@@ -3,7 +3,7 @@ from sqlalchemy import func
 from openai import OpenAI
 import os
 
-client = OpenAI()
+#client = OpenAI()
 
 def Anomaly():
     problem = ""

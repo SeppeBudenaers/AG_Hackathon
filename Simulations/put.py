@@ -10,7 +10,7 @@ def read_config_file():
     
     with open(config_file_path, 'r') as file:
         config_data = json.load(file)
-        BodyTemperature = Body_temperature(TimeStamp=date, temperature=config_data['Body_Temperature'])
+        BodyTemperature = Body_temperature(TimeStamp=date, Temperature=config_data['Body_Temperature'])
         HeartRate =Heart_Rate(TimeStamp=date, HeartRate=config_data['Heart_Rate'])
         BloodPressure = Blood_Pressure(TimeStamp=date, Systolic=config_data['Systolic'], Diastolic=config_data['Diastolic'])
         BloodOxygen = Blood_Oxygen(TimeStamp=date, Oxygen=config_data['Oxygen_Saturation'])
