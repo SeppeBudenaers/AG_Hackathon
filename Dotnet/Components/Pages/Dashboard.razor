@@ -9,7 +9,22 @@
 <h1>Dashboard</h1>
 
 <p role="status">Response: @content</p>
-<button class="btn btn-primary" @onclick="LoadApi">LoadApi</button>
+<button id="button" class="btn btn-primary" @onclick="LoadApi">LoadApi</button>
+
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="/js/charts.js"></script>
+
+<script>
+    document.getElementById('button').click();
+    interval = setInterval(function() {
+        document.getElementById('button').click();
+    }, 60000);
+</script>
 
 @code {
     private int currentCount = 0;
@@ -33,7 +48,7 @@
         
         GetResponse response = JsonSerializer.Deserialize<GetResponse>(content);
 
-
         Console.WriteLine(response.Heart_Rate);
     }
+
 }
