@@ -1,12 +1,12 @@
 from Database_Classes import *
 from Anomaly_Algorithm import *
-from bottle import route, run, request
+from bottle import route, run, request, post
 from datetime import datetime, timedelta
 import json 
 
 def serialize_list(l):
-
     return [m.to_dict() for m in l]
+
 @route('/push')
 def push():
     json_data = request.query.data or None
@@ -92,5 +92,13 @@ def get():
     return json.dumps(serialized_data)
     
 
+@route("/anomaly")
+def detect_anomalies():
+    return Anomaly()
+
+@post("/chat")
+def chat():
+    messages = request.json
+    return chat(messages)
 
 run(host='localhost', port=8080)

@@ -37,15 +37,18 @@ def Anomaly():
        problem = ("he normaly walks" +str(average_monthly_steps)+ "steps a day. he has been walking" + str(average_week_steps) + "steps a day for the last week. ")
     
     if problem != "":
-        completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-            {"role": "system", "content": "You are a sympathetic helper, `and we have discoverd strange behavior in our friend. our goal is figure out if it is a mental or pyshical issue to guide them to the right help. you are talking to the friend "},
-            {"role": "user", "content": "the name of the friend is Jhon Doe. please start the process. "+ problem},
-        ] 
+        messages = [{"role": "system", "content": "You are a sympathetic helper, `and we have discoverd strange behavior in our friend. our goal is figure out if it is a mental or pyshical issue to guide them to the right help. you are talking to the friend "},
+                    {"role": "user", "content": "the name of the friend is Jhon Doe. please start the process. "+ problem}]
+        
+        return chat(messages)
+    else:
+        return []
+  
+  
+def chat(messages):
+    completion = client.chat.completions.create(
+                 model="gpt-3.5-turbo",
+                 messages=messages
         )
-        return completion.choices[0].message
-    
-  
-  
-    
+    messages.append(completion.choices[0])
+    return messages
