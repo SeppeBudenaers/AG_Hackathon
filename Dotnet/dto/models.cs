@@ -6,10 +6,10 @@ public class BodyTemperature
     public float Temperature { get; set; }
 }
 
-public class HeartRate
+public class Heart_Rate
 {
     public DateTime TimeStamp { get; set; }
-    public int Rate { get; set; }
+    public int HeartRate { get; set; }
 }
 
 public class BloodPressure
@@ -64,6 +64,6 @@ public class Stress
 public class GetResponse {
 
     // [JsonParameterName("Body_Temperature")]
-    public BodyTemperature[] Body_Temperature {get;set;}
-    public HeartRate[] Heart_Rate {get;set;}
+    public BodyTemperature[] Body_Temperature {get;set;} = new BodyTemperature[0];
+    public Heart_Rate[] Heart_Rate {get;set;} = new Heart_Rate[0];
 }

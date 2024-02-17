@@ -8,9 +8,23 @@
 
 <h1>Dashboard</h1>
 
-<p role="status">Response: @response1</p>
-<p role="status">Response: @json.latitude</p>
-<button class="btn btn-primary" @onclick="LoadApi">LoadApi</button>
+<p role="status">Response: @content</p>
+<button id="button" class="btn btn-primary" @onclick="LoadApi">LoadApi</button>
+
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="/js/charts.js"></script>
+
+<script>
+    document.getElementById('button').click();
+    interval = setInterval(function() {
+        document.getElementById('button').click();
+    }, 60000);
+</script>
 
 @code {
     private int currentCount = 0;
@@ -31,15 +45,10 @@
         Console.WriteLine(response1);
         json = System.Text.Json.JsonSerializer.Deserialize<Weather>(response1);
         StateHasChanged();
+        
+        GetResponse response = JsonSerializer.Deserialize<GetResponse>(content);
+
+        Console.WriteLine(response.Heart_Rate);
     }
 
-    public class Weather {
-        public float latitude { get; set; }
-        public float longitude { get; set; }
-        public float generationtime_ms { get; set; }
-        public int utc_offiset_seconds { get; set; }
-        public string timezone { get; set; }
-        public string timezond_abbreviation { get; set; }
-        public float elevation { get; set; }
-    }
 }
