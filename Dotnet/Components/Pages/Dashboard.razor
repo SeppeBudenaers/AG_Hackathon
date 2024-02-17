@@ -1,20 +1,18 @@
 ﻿@page "/dashboard"
+@inject IHttpClientFactory HttpFactory
+
 @rendermode InteractiveServer
 
 <PageTitle>Dashboard</PageTitle>
 
 <h1>Dashboard</h1>
 
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-<p role="status">Response: @response1</p>
+<p role="status">Response: @content</p>
 <button class="btn btn-primary" @onclick="LoadApi">LoadApi</button>
 
 @code {
     private int currentCount = 0;
-    private string response1 = "Click on the button.";
+    private string content = "Click on the button.";
 
     private void IncrementCount()
     {
@@ -22,11 +20,13 @@
     }
 
     private async void LoadApi(){
-        response1 = "Loading";
-        HttpClient client = new HttpClient();
-        HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=sunrise,sunset&timezone=Europe%2FBerlin");
+        
+        var client = HttpFactory.CreateClient("PythonWebServer");
+        var response = await client.GetAsync("get");
+        @* HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=sunrise,sunset&timezone=Europe%2FBerlin"); *@
         response.EnsureSuccessStatusCode();
-        response1 = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(response1);
+        content = await response.Content.ReadAsStringAsync();
+        StateHasChanged();
+        Console.WriteLine(content);
     }
 }

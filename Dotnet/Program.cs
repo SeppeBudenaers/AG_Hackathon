@@ -6,6 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddHttpClient("PythonWebServer", c => {
+    c.BaseAddress = new Uri("http://localhost:8080");
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -60,3 +60,9 @@ public class Stress
     public DateTime TimeStamp { get; set; }
     public int Level { get; set; }
 }
+
+public class GetResponse {
+
+    // [JsonParameterName("Body_Temperature")]
+    public BodyTemperature[] Body_Temperature {get;set;}
+}
