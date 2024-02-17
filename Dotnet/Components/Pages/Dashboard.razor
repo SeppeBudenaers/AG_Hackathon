@@ -1,5 +1,6 @@
 ﻿@page "/dashboard"
 @inject IHttpClientFactory HttpFactory
+@using System.Text.Json;
 
 @rendermode InteractiveServer
 
@@ -13,6 +14,7 @@
 @code {
     private int currentCount = 0;
     private string content = "Click on the button.";
+    public GetResponse? response = null;
 
     private void IncrementCount()
     {
@@ -22,11 +24,16 @@
     private async void LoadApi(){
         
         var client = HttpFactory.CreateClient("PythonWebServer");
-        var response = await client.GetAsync("get");
+        var httpResponse = await client.GetAsync("get");
         @* HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=sunrise,sunset&timezone=Europe%2FBerlin"); *@
-        response.EnsureSuccessStatusCode();
-        content = await response.Content.ReadAsStringAsync();
+        httpResponse.EnsureSuccessStatusCode();
+        content = await httpResponse.Content.ReadAsStringAsync();
+
         StateHasChanged();
-        Console.WriteLine(content);
+        
+        GetResponse response = JsonSerializer.Deserialize<GetResponse>(content);
+
+
+        Console.WriteLine(response.Heart_Rate);
     }
 }

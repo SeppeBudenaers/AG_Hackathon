@@ -23,7 +23,7 @@ class Heart_Rate(Base):
     HeartRate = Column(Integer)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'HeartRate': self.HeartRate
         }
 
@@ -122,9 +122,9 @@ session = Session()
 # Create the tables
 Base.metadata.create_all(engine)
 
-t = Heart_Rate(TimeStamp = datetime.now(), HeartRate = 80)
-session.add(t)
-t = Heart_Rate(TimeStamp = datetime.now(), HeartRate = 0)
-session.add(t)
-session.commit()
+# t = Heart_Rate(TimeStamp = datetime.now(), HeartRate = 80)
+# session.add(t)
+# t = Heart_Rate(TimeStamp = datetime.now(), HeartRate = 0)
+# session.add(t)
+# session.commit()
 
