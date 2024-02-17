@@ -29,7 +29,7 @@
 
 @code {
     private int currentCount = 0;
-    private string content = "Click on the button.";
+    public string content = "Click on the button.";
     public GetResponse? response = null;
 
     private void IncrementCount()
@@ -42,22 +42,21 @@
         @* HttpClient client = new HttpClient(); *@
 
         HttpClient client = HttpFactory.CreateClient("PythonWebServer");
-
-        var http_response = await client.GetAsync("/");
+        Console.WriteLine($"content1: {content}");
+        var http_response = await client.GetAsync("/?start_date=2024-02-16 00:00:00&end_date=2024-02-19 23:59:59");
         content = await http_response.Content.ReadAsStringAsync();
 
-        Console.WriteLine("content", content);
+        Console.WriteLine($"content2: {content}");
 
-        @* JS.InvokeAsync<string>(); *@
         
         @* GetResponse response = JsonSerializer.Deserialize<GetResponse>(content); *@
         response = JsonSerializer.Deserialize<GetResponse>(content);
+
         var labels = response.Heart_Rate.Select(rate => rate.TimeStamp).ToList();
+        var data = response.Heart_Rate.Select(rate => rate.HeartRate).ToList();
 
-
+        await JS.InvokeAsync<Task>("set_data", labels, data);
         StateHasChanged();
-
-        Console.WriteLine("labels", labels);
     }
 
 }
