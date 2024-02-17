@@ -1,4 +1,5 @@
 from Database_Classes import *
+from Anomaly_Algorithm import *
 from bottle import route, run, request
 from datetime import datetime, timedelta
 import json 
@@ -11,13 +12,43 @@ def push():
     json_data = request.query.data or None
     if json_data is None:
         return 'No data provided'
-    
+    print(json_data)
     #parse json data here and push to database
-   
-    return json_data
+    json_data = json.loads(json_data)
+    Data_points = list(json_data.keys())
+    for data_point in Data_points:
+        #parsing json datapoints 
+        data = json_data[data_point]
+        entry = json.loads(data[0])
+        if data_point == 'Body_Temperature':
+            new_entry = Body_temperature(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), temperature=entry['temperature'])
+        elif data_point == 'Heart_Rate':
+            new_entry = Heart_Rate(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), HeartRate=entry['HeartRate'])
+        elif data_point == 'Blood_Pressure':
+            new_entry = Blood_Pressure(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), Systolic=entry['Systolic'], Diastolic=entry['Diastolic'])
+        elif data_point == 'Blood_Oxygen':
+            new_entry = Blood_Oxygen(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), Oxygen=entry['Oxygen'])
+        elif data_point == 'Respiratory_Rate':
+            new_entry = Respiratory_Rate(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), RespiratoryRate=entry['RespiratoryRate'])
+        elif data_point == 'sweat':
+            new_entry = sweat(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), sweat=entry['sweat'])
+        elif data_point == 'sugar':
+            new_entry = sugar(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), sugar=entry['sugar'])
+        elif data_point == 'steps':
+            new_entry = Steps(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), steps=entry['steps'])
+        elif data_point == 'emotion':
+            new_entry = Emotion(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), emotion=entry['emotion'])
+        elif data_point == 'stress':
+            new_entry = Stress(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), stress=entry['stress'])
+        else:
+            return 'Invalid data point'
+        session.add(new_entry)
+        session.commit()
+        return 'Data successfully pushed to database'
 
 @route('/get')
 def get():
+    
     current_date = datetime.now()
 
     end_date_str = request.query.end_date or current_date.strftime('%Y-%m-%d %H:%M:%S')
@@ -54,12 +85,12 @@ def get():
         'emotion': serialized_emotion,
         'stress': serialized_stress
     }
+    
+    #anomaly detection algorithm
+    Anomaly()
+
     return json.dumps(serialized_data)
     
 
 
 run(host='localhost', port=8080)
-
-
-# z = session.query(Body_temperature).all()
-# print(z[0].temperature)
