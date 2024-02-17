@@ -7,7 +7,7 @@ import json
 def serialize_list(l):
 
     return [m.to_dict() for m in l]
-@route('/push')
+@route('/', method='POST')
 def push():
     json_data = request.query.data or None
     if json_data is None:
@@ -18,8 +18,7 @@ def push():
     Data_points = list(json_data.keys())
     for data_point in Data_points:
         #parsing json datapoints 
-        data = json_data[data_point]
-        entry = json.loads(data[0])
+        entry  = json_data[data_point]
         if data_point == 'Body_Temperature':
             new_entry = Body_temperature(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), temperature=entry['temperature'])
         elif data_point == 'Heart_Rate':
@@ -35,18 +34,19 @@ def push():
         elif data_point == 'sugar':
             new_entry = sugar(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), sugar=entry['sugar'])
         elif data_point == 'steps':
-            new_entry = Steps(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), steps=entry['steps'])
+            new_entry = Steps(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), Steps=entry['Steps'])
         elif data_point == 'emotion':
-            new_entry = Emotion(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), emotion=entry['emotion'])
+            new_entry = Emotion(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), Emotion=entry['Emotion'])
         elif data_point == 'stress':
-            new_entry = Stress(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), stress=entry['stress'])
+            new_entry = Stress(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), Stress=entry['Stress'])
         else:
             return 'Invalid data point'
         session.add(new_entry)
         session.commit()
-        return 'Data successfully pushed to database'
+    return 'Data successfully pushed to database'
 
-@route('/get')
+@route('/', method='GET')
+
 def get():
     
     current_date = datetime.now()
@@ -86,11 +86,6 @@ def get():
         'stress': serialized_stress
     }
     
-    #anomaly detection algorithm
-    Anomaly()
-
     return json.dumps(serialized_data)
     
-
-
 run(host='localhost', port=8080)

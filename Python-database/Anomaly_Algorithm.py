@@ -44,6 +44,7 @@ def Anomaly():
             {"role": "user", "content": "the name of the friend is Jhon Doe. please start the process. "+ problem},
         ] 
         )
+        print(completion.choices[0].message)
         return completion.choices[0].message
     
   
