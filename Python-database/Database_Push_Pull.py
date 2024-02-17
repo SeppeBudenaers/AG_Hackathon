@@ -91,11 +91,13 @@ def get():
 
 @route("/anomaly")
 def detect_anomalies():
-    return Anomaly()
+    print('Detecting anomalies')
+    return json.dumps(Anomaly())
 
 @post("/chat")
-def chat():
+def Chat():
     messages = request.json
-    return chat(messages)
+    print("1",messages)
+    return json.dumps(chat(messages))
 
 run(host='localhost', port=8080)

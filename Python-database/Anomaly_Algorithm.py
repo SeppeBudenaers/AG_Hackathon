@@ -46,9 +46,11 @@ def Anomaly():
   
   
 def chat(messages):
+    print("2",messages)
     completion = client.chat.completions.create(
                  model="gpt-3.5-turbo",
                  messages=messages
         )
-    messages.append(completion.choices[0])
+    messages.append({"role": completion.choices[0].message.role,"content": completion.choices[0].message.content})
+    print("3",messages)
     return messages
