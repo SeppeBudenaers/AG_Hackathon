@@ -6,9 +6,18 @@ import json
 def serialize_list(l):
 
     return [m.to_dict() for m in l]
+@route('/push')
+def push():
+    json_data = request.query.data or None
+    if json_data is None:
+        return 'No data provided'
+    
+    #parse json data here and push to database
+   
+    return json_data
 
-@route('/')
-def endpoint():
+@route('/get')
+def get():
     current_date = datetime.now()
 
     end_date_str = request.query.end_date or current_date.strftime('%Y-%m-%d %H:%M:%S')
