@@ -122,9 +122,9 @@ session = Session()
 # Create the tables
 Base.metadata.create_all(engine)
 
-t = Heart_Rate(TimeStamp = datetime.now(), HeartRate = 80)
-session.add(t)
-t = Heart_Rate(TimeStamp = datetime.now(), HeartRate = 0)
-session.add(t)
-session.commit()
+# t = Body_temperature(TimeStamp = datetime.now(), temperature = 37.5)
+# session.add(t)
+# t = Body_temperature(TimeStamp = datetime.now(), temperature = 38)
+# session.add(t)
+# session.commit()
 
