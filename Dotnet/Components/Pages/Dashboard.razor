@@ -10,23 +10,37 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 <p role="status">Response: @response1</p>
+<p role="status">Response: @json.latitude</p>
 <button class="btn btn-primary" @onclick="LoadApi">LoadApi</button>
 
 @code {
     private int currentCount = 0;
     private string response1 = "Click on the button.";
+    private Weather json = new Weather();
 
     private void IncrementCount()
     {
         currentCount++;
     }
 
-    private async void LoadApi(){
+    private async void LoadApi(){    
         response1 = "Loading";
         HttpClient client = new HttpClient();
-        HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=sunrise,sunset&timezone=Europe%2FBerlin");
-        response.EnsureSuccessStatusCode();
+        //HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=sunrise,sunset&timezone=Europe%2FBerlin");
+        HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41");
         response1 = await response.Content.ReadAsStringAsync();
         Console.WriteLine(response1);
+        json = System.Text.Json.JsonSerializer.Deserialize<Weather>(response1);
+        StateHasChanged();
+    }
+
+    public class Weather {
+        public float latitude { get; set; }
+        public float longitude { get; set; }
+        public float generationtime_ms { get; set; }
+        public int utc_offiset_seconds { get; set; }
+        public string timezone { get; set; }
+        public string timezond_abbreviation { get; set; }
+        public float elevation { get; set; }
     }
 }
