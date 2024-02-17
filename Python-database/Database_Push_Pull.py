@@ -1,4 +1,5 @@
 from Database_Classes import *
+from Anomaly_Algorithm import *
 from bottle import route, run, request
 from datetime import datetime, timedelta
 import json 
@@ -47,6 +48,7 @@ def push():
 
 @route('/get')
 def get():
+    
     current_date = datetime.now()
 
     end_date_str = request.query.end_date or current_date.strftime('%Y-%m-%d %H:%M:%S')
@@ -83,12 +85,12 @@ def get():
         'emotion': serialized_emotion,
         'stress': serialized_stress
     }
+    
+    #anomaly detection algorithm
+    Anomaly()
+
     return json.dumps(serialized_data)
     
 
 
 run(host='localhost', port=8080)
-
-
-# z = session.query(Body_temperature).all()
-# print(z[0].temperature)

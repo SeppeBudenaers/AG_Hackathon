@@ -13,7 +13,7 @@ class Body_temperature(Base):
     temperature = Column(Float)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'temperature': self.temperature
         }
 
@@ -23,7 +23,7 @@ class Heart_Rate(Base):
     HeartRate = Column(Integer)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'HeartRate': self.HeartRate
         }
 
@@ -34,7 +34,7 @@ class Blood_Pressure(Base):
     Diastolic = Column(Integer)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'Systolic': self.Systolic,
             'Diastolic': self.Diastolic
         }
@@ -45,7 +45,7 @@ class Blood_Oxygen(Base):
     Oxygen = Column(Integer)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'Oxygen': self.Oxygen
         }
 
@@ -55,7 +55,7 @@ class Respiratory_Rate(Base):
     RespiratoryRate = Column(Integer)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'RespiratoryRate': self.RespiratoryRate
         }
 
@@ -65,7 +65,7 @@ class sweat(Base):
     sweat = Column(Integer)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'sweat': self.sweat
         }
 
@@ -75,7 +75,7 @@ class sugar(Base):
     sugar = Column(Integer)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'sugar': self.sugar
         }
 
@@ -86,7 +86,7 @@ class Steps(Base):
     Steps = Column(String)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'Steps': self.Steps
         }
 
@@ -97,7 +97,7 @@ class Emotion(Base):
     Emotion = Column(String)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'Emotion': self.Emotion
         }
 
@@ -107,7 +107,7 @@ class Stress(Base):
     Stress = Column(Integer)
     def to_dict(self):
         return {
-            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
             'Stress': self.Stress
         }
 
