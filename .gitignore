@@ -1,5 +1,5 @@
 Dotnet/bin/
 Dotnet/obj/
 *.pyc
-*.bd
+*.db
 */__pycache__/
