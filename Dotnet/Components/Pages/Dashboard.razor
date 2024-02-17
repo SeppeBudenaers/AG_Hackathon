@@ -1,5 +1,6 @@
 ﻿@page "/dashboard"
 @inject IHttpClientFactory HttpFactory
+@inject IJSRuntime JS
 @using System.Text.Json;
 
 @rendermode InteractiveServer
@@ -37,18 +38,25 @@
     }
 
     private async void LoadApi(){    
-        response1 = "Loading";
-        HttpClient client = new HttpClient();
-        //HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=sunrise,sunset&timezone=Europe%2FBerlin");
-        HttpResponseMessage response = await client.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41");
-        response1 = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(response1);
-        json = System.Text.Json.JsonSerializer.Deserialize<Weather>(response1);
-        StateHasChanged();
+        content = "Loading";
+        @* HttpClient client = new HttpClient(); *@
+
+        HttpClient client = HttpFactory.CreateClient("PythonWebServer");
+
+        var http_response = await client.GetAsync("/");
+        content = await http_response.Content.ReadAsStringAsync();
+
+        Console.WriteLine(content);
+
+        @* JS.InvokeAsync<string>(); *@
         
         GetResponse response = JsonSerializer.Deserialize<GetResponse>(content);
+        var labels = response.Heart_Rate.Select(rate => rate.TimeStamp).ToList();
 
-        Console.WriteLine(response.Heart_Rate);
+        StateHasChanged();
+
+        
+        Console.WriteLine(labels);
     }
 
 }

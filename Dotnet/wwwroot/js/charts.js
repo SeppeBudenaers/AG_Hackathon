@@ -1,12 +1,20 @@
 ctx = document.getElementById('myChart');
 
+var labels = []
+var data = []
+
+function set_data(new_labels, new_data){
+  labels = new_labels;
+  data = new_data;
+}
+
   chart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: [],
+      labels: labels,
       datasets: [{
         label: 'Hartslag',
-        data: [],
+        data: data,
         borderWidth: 1
       }]
     },
