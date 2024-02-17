@@ -87,7 +87,7 @@ class Steps(Base):
     def to_dict(self):
         return {
             'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
-            'Swsteps': self.Steps
+            'Steps': self.Steps
         }
 
 #Emotional Data

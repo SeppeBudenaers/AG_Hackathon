@@ -20,25 +20,25 @@ def push():
         #parsing json datapoints 
         entry  = json_data[data_point]
         if data_point == 'Body_Temperature':
-            new_entry = Body_temperature(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), temperature=entry['temperature'])
+            new_entry = Body_temperature(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), temperature=entry['Temperature'])
         elif data_point == 'Heart_Rate':
-            new_entry = Heart_Rate(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), HeartRate=entry['HeartRate'])
+            new_entry = Heart_Rate(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), HeartRate=entry['HeartRate'])
         elif data_point == 'Blood_Pressure':
-            new_entry = Blood_Pressure(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), Systolic=entry['Systolic'], Diastolic=entry['Diastolic'])
+            new_entry = Blood_Pressure(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Systolic=entry['Systolic'], Diastolic=entry['Diastolic'])
         elif data_point == 'Blood_Oxygen':
-            new_entry = Blood_Oxygen(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), Oxygen=entry['Oxygen'])
+            new_entry = Blood_Oxygen(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Oxygen=entry['Oxygen'])
         elif data_point == 'Respiratory_Rate':
-            new_entry = Respiratory_Rate(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), RespiratoryRate=entry['RespiratoryRate'])
+            new_entry = Respiratory_Rate(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), RespiratoryRate=entry['RespiratoryRate'])
         elif data_point == 'sweat':
-            new_entry = sweat(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), sweat=entry['sweat'])
+            new_entry = sweat(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), sweat=entry['Sweat'])
         elif data_point == 'sugar':
-            new_entry = sugar(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), sugar=entry['sugar'])
+            new_entry = sugar(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), sugar=entry['Sugar'])
         elif data_point == 'steps':
-            new_entry = Steps(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), Steps=entry['Steps'])
+            new_entry = Steps(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Steps=entry['Steps'])
         elif data_point == 'emotion':
-            new_entry = Emotion(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), Emotion=entry['Emotion'])
+            new_entry = Emotion(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Emotion=entry['Emotion'])
         elif data_point == 'stress':
-            new_entry = Stress(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%d %H:%M:%S'), Stress=entry['Stress'])
+            new_entry = Stress(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Stress=entry['Stress'])
         else:
             return 'Invalid data point'
         session.add(new_entry)
