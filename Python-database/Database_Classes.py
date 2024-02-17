@@ -14,7 +14,7 @@ class Body_temperature(Base):
     def to_dict(self):
         return {
             'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
-            'temperature': self.Temperature
+            'Temperature': self.temperature
         }
 
 class Heart_Rate(Base):
@@ -66,7 +66,7 @@ class sweat(Base):
     def to_dict(self):
         return {
             'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
-            'sweat': self.sweat
+            'Sweat': self.sweat
         }
 
 class sugar(Base):
@@ -76,7 +76,7 @@ class sugar(Base):
     def to_dict(self):
         return {
             'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
-            'sugar': self.sugar
+            'Sugar': self.sugar
         }
 
 #Activity Data
@@ -87,7 +87,7 @@ class Steps(Base):
     def to_dict(self):
         return {
             'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
-            'Steps': self.Steps
+            'Swsteps': self.Steps
         }
 
 #Emotional Data
