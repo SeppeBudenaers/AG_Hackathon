@@ -29,15 +29,15 @@ def push():
             new_entry = Blood_Oxygen(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Oxygen=entry['Oxygen'])
         elif data_point == 'Respiratory_Rate':
             new_entry = Respiratory_Rate(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), RespiratoryRate=entry['RespiratoryRate'])
-        elif data_point == 'sweat':
-            new_entry = sweat(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), sweat=entry['Sweat'])
-        elif data_point == 'sugar':
-            new_entry = sugar(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), sugar=entry['Sugar'])
-        elif data_point == 'steps':
+        elif data_point == 'Sweat':
+            new_entry = sweat(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Sweat=entry['Sweat'])
+        elif data_point == 'Sugar':
+            new_entry = sugar(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Sugar=entry['Sugar'])
+        elif data_point == 'Steps':
             new_entry = Steps(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Steps=entry['Steps'])
-        elif data_point == 'emotion':
+        elif data_point == 'Emotion':
             new_entry = Emotion(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Emotion=entry['Emotion'])
-        elif data_point == 'stress':
+        elif data_point == 'Stress':
             new_entry = Stress(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Stress=entry['Stress'])
         else:
             return 'Invalid data point'

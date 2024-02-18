@@ -70,7 +70,7 @@ class sweat(Base):
         }
 
 class sugar(Base):
-    __tablename__ = 'sugar'
+    __tablename__ = 'Sugar'
     TimeStamp = Column(DateTime, primary_key=True)
     sugar = Column(Integer)
     def to_dict(self):
