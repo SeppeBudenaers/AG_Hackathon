@@ -24,7 +24,7 @@ def read_config_file():
         BodyTemperature = Body_temperature(TimeStamp=date, temperature=float(config_data['Body_Temperature'] + rtemp))
         HeartRate =Heart_Rate(TimeStamp=date, HeartRate=int(config_data['Heart_Rate'] + rheart + cpanic()))
         BloodPressure = Blood_Pressure(TimeStamp=date, Systolic=config_data['Systolic'], Diastolic=config_data['Diastolic'])
-        BloodOxygen = Blood_Oxygen(TimeStamp=date, Oxygen=int(config_data['Oxygen_Saturation'] + roxygen+ cpanic()))
+        BloodOxygen = Blood_Oxygen(TimeStamp=date, Oxygen=int(config_data['Oxygen_Saturation'] + roxygen))
         RespiratoryRate = Respiratory_Rate(TimeStamp=date, RespiratoryRate=config_data['Respiratory_Rate'])
         Sweat = sweat(TimeStamp=date, sweat=config_data['sweat'])
         Sugar = sugar(TimeStamp=date, sugar=config_data['sugar'])

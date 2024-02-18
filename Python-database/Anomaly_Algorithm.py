@@ -3,17 +3,17 @@ from sqlalchemy import func
 from openai import OpenAI
 import os
 
-# client = OpenAI()
+client = OpenAI()
 
 def Anomaly():
     problem = ""
     #Panic Attack
     average_heart_rate = session.query(func.avg(Heart_Rate.HeartRate)).scalar() or 80
-    average_sweat = session.query(func.avg(sweat.sweat)).scalar() or 500
+    average_sweat = session.query(func.avg(sweat.Sweat)).scalar() or 500
     average_breathing_rate = session.query(func.avg(Respiratory_Rate.RespiratoryRate)).scalar() or 15
 
     average_last_hour_heart_rate = session.query(func.avg(Heart_Rate.HeartRate)).filter(Heart_Rate.TimeStamp >= datetime.now() - timedelta(hours=1)).scalar() or 120
-    average_last_hour_sweat = session.query(func.avg(sweat.sweat)).filter(sweat.TimeStamp >= datetime.now() - timedelta(hours=1)).scalar() or 1000
+    average_last_hour_sweat = session.query(func.avg(sweat.Sweat)).filter(sweat.TimeStamp >= datetime.now() - timedelta(hours=1)).scalar() or 1000
     average_last_hour_breathing_rate = session.query(func.avg(Respiratory_Rate.RespiratoryRate)).filter(Respiratory_Rate.TimeStamp >= datetime.now() - timedelta(hours=1)).scalar() or 25
 
     # Check if the averages meet the conditions for panic attack detection
@@ -21,7 +21,8 @@ def Anomaly():
         print('Panic Attack Detected')
         problem = ("his normal vitals are: heart rate: " + str(average_heart_rate) + " bpm, sweat: " + str(average_sweat) + " ml and breathing rate: " + str(average_breathing_rate) + " breaths per minute. his vitals have changed in the last hour to: heart rate: " + str(average_last_hour_heart_rate) + " bpm, sweat: " + str(average_last_hour_sweat) + " and breathing rate: " + str(average_last_hour_breathing_rate) + " breaths per minute.")
     #fever and hypothermia
-    average_body_temperature = session.query(func.avg(Body_temperature.temperature)).filter(Body_temperature.TimeStamp >= datetime.now() - timedelta(hours=1)).scalar() or 37
+    average_body_temperature = session.query(func.avg(Body_temperature.Temperature)).filter(Body_temperature.TimeStamp >= datetime.now() - timedelta(minutes=1)).scalar() or 37
+    print(average_body_temperature)
     if average_body_temperature > 38:
         print('Fever Detected')
         problem = ("he has a fever of " + str(average_body_temperature) + " degrees")
