@@ -79,11 +79,11 @@ def get():
         'Blood_Pressure': serialized_blood_pressure,
         'Blood_Oxygen': serialized_blood_oxygen,
         'Respiratory_Rate': serialized_respiratory_rate,
-        'sweat': serialized_sweat,
-        'sugar': serialized_sugar,
-        'steps': serialized_steps,
-        'emotion': serialized_emotion,
-        'stress': serialized_stress
+        'Sweat': serialized_sweat,
+        'Sugar': serialized_sugar,
+        'Steps': serialized_steps,
+        'Emotion': serialized_emotion,
+        'Stress': serialized_stress
     }
     
     return json.dumps(serialized_data)

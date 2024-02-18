@@ -21,7 +21,7 @@ def read_config_file():
         rheart = random.randint(-5, 5)
         roxygen = random.randint(-5, 1)
 
-        BodyTemperature = Body_temperature(TimeStamp=date, temperature=float(config_data['Body_Temperature'] + rtemp + cpanic()))
+        BodyTemperature = Body_temperature(TimeStamp=date, temperature=float(config_data['Body_Temperature'] + rtemp))
         HeartRate =Heart_Rate(TimeStamp=date, HeartRate=int(config_data['Heart_Rate'] + rheart + cpanic()))
         BloodPressure = Blood_Pressure(TimeStamp=date, Systolic=config_data['Systolic'], Diastolic=config_data['Diastolic'])
         BloodOxygen = Blood_Oxygen(TimeStamp=date, Oxygen=int(config_data['Oxygen_Saturation'] + roxygen+ cpanic()))
