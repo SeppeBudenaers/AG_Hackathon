@@ -37,7 +37,6 @@ var Blood_Oxygen = []
 
 
   function set_data(new_labels, new_data, new_body_temp, new_blood_oxygen){
-  function set_data(new_labels, new_data){
     console.log("set_data")
     labels.push(...new_labels);
     data.push(...new_data);
