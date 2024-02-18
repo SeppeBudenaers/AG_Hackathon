@@ -60,13 +60,13 @@ class Respiratory_Rate(Base):
         }
 
 class sweat(Base):
-    __tablename__ = 'sweat'
+    __tablename__ = 'Sweat'
     TimeStamp = Column(DateTime, primary_key=True)
     sweat = Column(Integer)
     def to_dict(self):
         return {
             'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
-            'Sweat': self.sweat
+            'Level': self.sweat
         }
 
 class sugar(Base):
