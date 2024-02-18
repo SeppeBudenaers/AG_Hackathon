@@ -17,7 +17,9 @@
 </div>
 <div class='row'>
     <div class="card col-4">
-    <img class="card-img-top" src="..." alt="Card image cap">
+        <div style="text-align:center">
+    <img class="card-img-top" src="https://as2.ftcdn.net/v2/jpg/05/73/25/73/1000_F_573257334_yO14ZqKcCfJMq3KVQkC0je1gqtVAlsAV.webp" style="max-width:100px" alt="Card image cap">
+    </div>
     <div class="card-body">
         <h5 class="card-title">Sweat</h5>
         <p class="card-text">Level:</p>
@@ -25,7 +27,9 @@
     </div>
     </div>
     <div class="card col-4">
-    <img class="card-img-top" src="..." alt="Card image cap">
+        <div style="text-align:center">
+    <img class="card-img-top" src="/img/sugar.png" style="max-width:100px" alt="Card image cap">
+    </div>
     <div class="card-body">
         <h5 class="card-title">Sugar</h5>
         <p class="card-text">Level:</p>
@@ -33,11 +37,16 @@
     </div>
     </div>
     <div class="card col-4">
-    <img class="card-img-top" src="..." alt="Card image cap">
+        <div style="text-align:center">
+    <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/3285/3285977.png" style="max-width:100px" alt="Card image cap">
+    </div>
     <div class="card-body">
         <h5 class="card-title">Emotion</h5>
         <p class="card-text">Type:</p>
         <p id=Emotion class="card-text number"></p>
+        <div style="text-align:center">
+    <img class="card-img-top" src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL3JtNTg2YmF0Y2gyLWVtb2ppLTAwNi5wbmc.png" style="max-width:100px" alt="Card image cap">
+    </div>
     </div>
     </div>
 </div>
@@ -56,7 +65,6 @@
     }, 5000);
 
     function set_text(id, text){
-    console.log(id + " / " + text);
     document.getElementById(id).innerText=text;
   }
 
@@ -107,7 +115,9 @@
         lastSync.AddMicroseconds(1);
         await JS.InvokeAsync<Task>("set_data", labels, data, body_temp, oxygen_temp);
             Console.WriteLine(response.Sweat.Length);
-        await JS.InvokeAsync<Task>("set_text", "Sweat", "test");
+            Random rand = new Random();
+        await JS.InvokeAsync<Task>("set_text", "Sweat", rand.Next(10,30));
+        await JS.InvokeAsync<Task>("set_text", "Sugar", rand.Next(10,30));
         StateHasChanged();
         }
         catch {
