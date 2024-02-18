@@ -4,3 +4,10 @@
   right: 20px;
   z-index: 100;
 }
+
+#chatWindow {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  z-index: 99;
+}
