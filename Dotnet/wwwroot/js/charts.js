@@ -58,11 +58,6 @@ var Blood_Oxygen = []
     chart.update()
   }
 
-  function set_number(id, text){
-    console.log(id + " / " + text);
-    document.getElementById(id).innerText=text;
-  }
-
 //   interval = setInterval(function() {
 //     time = new Date();
 //     if(chart.data.labels.length > 20) {
