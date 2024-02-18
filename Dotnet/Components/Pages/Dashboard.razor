@@ -1,4 +1,4 @@
-﻿@page "/dashboard"
+﻿@page "/"
 @inject IHttpClientFactory HttpFactory
 @inject IJSRuntime JS
 @using System.Text.Json;
@@ -56,8 +56,6 @@
         
         if (content.Trim().Length == 0)
             return;
-
-        
 
         
         @* GetResponse response = JsonSerializer.Deserialize<GetResponse>(content); *@
