@@ -10,11 +10,11 @@ Base = declarative_base()
 class Body_temperature(Base):
     __tablename__ = 'Body_temperature'
     TimeStamp = Column(DateTime, primary_key=True)
-    temperature = Column(Float)
+    Temperature = Column(Float)
     def to_dict(self):
         return {
             'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
-            'Temperature': self.temperature
+            'Temperature': self.Temperature
         }
 
 class Heart_Rate(Base):
@@ -62,21 +62,21 @@ class Respiratory_Rate(Base):
 class sweat(Base):
     __tablename__ = 'Sweat'
     TimeStamp = Column(DateTime, primary_key=True)
-    sweat = Column(Integer)
+    Sweat = Column(Integer)
     def to_dict(self):
         return {
             'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
-            'Level': self.sweat
+            'Sweat': self.Sweat
         }
 
 class sugar(Base):
     __tablename__ = 'Sugar'
     TimeStamp = Column(DateTime, primary_key=True)
-    sugar = Column(Integer)
+    Sugar = Column(Integer)
     def to_dict(self):
         return {
             'TimeStamp': self.TimeStamp.strftime('%Y-%m-%dT%H:%M:%S'),
-            'Sugar': self.sugar
+            'Sugar': self.Sugar
         }
 
 #Activity Data

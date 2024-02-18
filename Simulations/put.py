@@ -16,11 +16,11 @@ def read_config_file():
         BloodPressure = Blood_Pressure(TimeStamp=date, Systolic=config_data['Systolic'], Diastolic=config_data['Diastolic'])
         BloodOxygen = Blood_Oxygen(TimeStamp=date, Oxygen=random.randint(80, 97))
         RespiratoryRate = Respiratory_Rate(TimeStamp=date, RespiratoryRate=config_data['Respiratory_Rate'])
-        Sweat = sweat(TimeStamp=date, sweat=config_data['sweat'])
-        Sugar = sugar(TimeStamp=date, sugar=config_data['sugar'])
-        steps =Steps(TimeStamp=date, Steps=config_data['steps'])
-        emotion = Emotion(TimeStamp=date, Emotion=config_data['emotion'])
-        stress = Stress(TimeStamp=date, Stress=config_data['stress'])
+        Sweat1 = Sweat(TimeStamp=date, Sweat=config_data['Sweat'])
+        Sugar1 = Sugar(TimeStamp=date, Sugar=config_data['Sugar'])
+        Steps1 =Steps(TimeStamp=date, Steps=config_data['Steps'])
+        Emotion1 = Emotion(TimeStamp=date, Emotion=config_data['Emotion'])
+        Stress1 = Stress(TimeStamp=date, Stress=config_data['Stress'])
         
         serialized_data = {
             'Body_Temperature': BodyTemperature.to_dict(),
@@ -28,11 +28,11 @@ def read_config_file():
             'Blood_Pressure': BloodPressure.to_dict(),
             'Blood_Oxygen': BloodOxygen.to_dict(),
             'Respiratory_Rate': RespiratoryRate.to_dict(),
-            'sweat': Sweat.to_dict(),
-            'sugar': Sugar.to_dict(),
-            'steps': steps.to_dict(),
-            'emotion': emotion.to_dict(),
-            'stress': stress.to_dict()
+            'Sweat': Sweat1.to_dict(),
+            'Sugar': Sugar1.to_dict(),
+            'Steps': Steps1.to_dict(),
+            'Emotion': Emotion1.to_dict(),
+            'Stress': Stress1.to_dict()
         }
     return json.dumps(serialized_data)
 

@@ -20,7 +20,7 @@ def push():
         #parsing json datapoints 
         entry  = json_data[data_point]
         if data_point == 'Body_Temperature':
-            new_entry = Body_temperature(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), temperature=entry['Temperature'])
+            new_entry = Body_temperature(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), Temperature=entry['Temperature'])
         elif data_point == 'Heart_Rate':
             new_entry = Heart_Rate(TimeStamp=datetime.strptime(entry['TimeStamp'], '%Y-%m-%dT%H:%M:%S'), HeartRate=entry['HeartRate'])
         elif data_point == 'Blood_Pressure':
