@@ -67,5 +67,5 @@ public class GetResponse {
     public BodyTemperature[] Body_Temperature {get;set;} = new BodyTemperature[0];
     public Heart_Rate[] Heart_Rate {get;set;} = new Heart_Rate[0];
     public BloodOxygen[] Blood_Oxygen {get; set;} = new BloodOxygen[0];
-    public Sweat[] Sweats {get; set;} = new Sweat[0];
+    public Sweat[] Sweat {get; set;} = new Sweat[0];
 }

@@ -5,9 +5,9 @@
     "Diastolic": 0,
     "Oxygen_Saturation": 98,
     "Respiratory_Rate": 20,
-    "sweat": 0,
-    "sugar": 0,
-    "steps": 10000,
-    "emotion": "Happy",
-    "stress": 0
+    "Sweat": 0,
+    "Sugar": 0,
+    "Steps": 10000,
+    "Emotion": "Happy",
+    "Stress": 0
 }

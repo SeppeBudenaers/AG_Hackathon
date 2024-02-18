@@ -57,7 +57,7 @@
 
     function set_text(id, text){
     console.log(id + " / " + text);
-    //document.getElementById(id).innerText=text;
+    document.getElementById(id).innerText=text;
   }
 
 </script>
@@ -106,7 +106,8 @@
         lastSync = response.Heart_Rate.Max(hr => hr.TimeStamp);
         lastSync.AddMicroseconds(1);
         await JS.InvokeAsync<Task>("set_data", labels, data, body_temp, oxygen_temp);
-        //await JS.InvokeAsync<Task>("set_text", "Sweat", response.Sweats.Last().Level);
+            Console.WriteLine(response.Sweat.Length);
+        await JS.InvokeAsync<Task>("set_text", "Sweat", "test");
         StateHasChanged();
         }
         catch {

@@ -5,22 +5,32 @@ import json
 import time
 import random
 step = 0
+panic = 0
 date = datetime.now()
+def cpanic():
+    print(pow(2, panic))
+    return int(pow(2, panic))
+
 def read_config_file():
     config_file_path = './config.json'
     
     with open(config_file_path, 'r') as file:
         config_data = json.load(file)
-        BodyTemperature = Body_temperature(TimeStamp=date, temperature=random.randint(35, 40))
-        HeartRate =Heart_Rate(TimeStamp=date, HeartRate=random.randint(70, 85))
+
+        rtemp = random.randint(-1, 2)
+        rheart = random.randint(-5, 5)
+        roxygen = random.randint(-5, 1)
+
+        BodyTemperature = Body_temperature(TimeStamp=date, temperature=float(config_data['Body_Temperature'] + rtemp))
+        HeartRate =Heart_Rate(TimeStamp=date, HeartRate=int(config_data['Heart_Rate'] + rheart + cpanic()))
         BloodPressure = Blood_Pressure(TimeStamp=date, Systolic=config_data['Systolic'], Diastolic=config_data['Diastolic'])
-        BloodOxygen = Blood_Oxygen(TimeStamp=date, Oxygen=random.randint(80, 97))
+        BloodOxygen = Blood_Oxygen(TimeStamp=date, Oxygen=int(config_data['Oxygen_Saturation'] + roxygen+ cpanic()))
         RespiratoryRate = Respiratory_Rate(TimeStamp=date, RespiratoryRate=config_data['Respiratory_Rate'])
-        Sweat1 = Sweat(TimeStamp=date, Sweat=config_data['Sweat'])
-        Sugar1 = Sugar(TimeStamp=date, Sugar=config_data['Sugar'])
-        Steps1 =Steps(TimeStamp=date, Steps=config_data['Steps'])
-        Emotion1 = Emotion(TimeStamp=date, Emotion=config_data['Emotion'])
-        Stress1 = Stress(TimeStamp=date, Stress=config_data['Stress'])
+        Sweat = sweat(TimeStamp=date, sweat=config_data['sweat'])
+        Sugar = sugar(TimeStamp=date, sugar=config_data['sugar'])
+        steps =Steps(TimeStamp=date, Steps=config_data['steps'])
+        emotion = Emotion(TimeStamp=date, Emotion=config_data['emotion'])
+        stress = Stress(TimeStamp=date, Stress=config_data['stress'])
         
         serialized_data = {
             'Body_Temperature': BodyTemperature.to_dict(),
@@ -28,11 +38,11 @@ def read_config_file():
             'Blood_Pressure': BloodPressure.to_dict(),
             'Blood_Oxygen': BloodOxygen.to_dict(),
             'Respiratory_Rate': RespiratoryRate.to_dict(),
-            'Sweat': Sweat1.to_dict(),
-            'Sugar': Sugar1.to_dict(),
-            'Steps': Steps1.to_dict(),
-            'Emotion': Emotion1.to_dict(),
-            'Stress': Stress1.to_dict()
+            'Sweat': Sweat.to_dict(),
+            'Sugar': Sugar.to_dict(),
+            'Steps': steps.to_dict(),
+            'Emotion': emotion.to_dict(),
+            'Stress': stress.to_dict()
         }
     return json.dumps(serialized_data)
 
@@ -47,9 +57,14 @@ def send_data_to_server(data):
     else:
         print('Failed to send data')
 
+
 while True: 
     config_string = read_config_file()
+    print(config_string)
     send_data_to_server(config_string)
     date = date + timedelta(seconds=10)
+    step = step + 1
+    if step > 6:
+        panic = panic+1
     time.sleep(10)
     
