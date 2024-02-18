@@ -3,8 +3,6 @@ ctx = document.getElementById('myChart');
 var labels = []
 var data = []
 
-
-
   chart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -27,9 +25,20 @@ var data = []
 
 
   function set_data(new_labels, new_data){
+    console.log("set_data")
     labels.push(...new_labels);
     data.push(...new_data);
-    console.log(labels, data)
+    
+    console.log(labels, labels.length > 20)
+
+    while (labels.length > 20) {
+      labels.shift()
+      data.shift()
+    }
+
+    console.log(labels)
+
+
     chart.update()
   }
 

@@ -50,6 +50,6 @@ def send_data_to_server(data):
 while True: 
     config_string = read_config_file()
     send_data_to_server(config_string)
-    date = date + timedelta(days=1)
+    date = date + timedelta(seconds=10)
     time.sleep(10)
     
