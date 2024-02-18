@@ -11,7 +11,37 @@
 
 @* <p role="status">Response: @content</p> *@
 <button id="button" class="btn btn-primary" @onclick="LoadApi" hidden>LoadApi</button>
-
+<div id=alerts>
+    <div class="alert alert-danger" role="alert">
+        This is a danger alert—check it out!
+    </div>
+</div>
+<div class='row'>
+    <div class="card col-4">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Sweat</h5>
+        <p class="card-text">Level:</p>
+        <p id=Sweat class="card-text number"></p>
+    </div>
+    </div>
+    <div class="card col-4">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Sugar</h5>
+        <p class="card-text">Level:</p>
+        <p id=Sugar class="card-text number"></p>
+    </div>
+    </div>
+    <div class="card col-4">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Emotion</h5>
+        <p class="card-text">Type:</p>
+        <p id=Emotion class="card-text number"></p>
+    </div>
+    </div>
+</div>
 <div>
   <canvas id="myChart"></canvas>
 </div>
@@ -25,7 +55,14 @@
     interval = setInterval(function() {
         document.getElementById('button').click();
     }, 5000);
+
+    function set_text(id, text){
+    console.log(id + " / " + text);
+    //document.getElementById(id).innerText=text;
+  }
+
 </script>
+
 
 @code {
     private int currentCount = 0;
@@ -70,6 +107,7 @@
         lastSync = response.Heart_Rate.Max(hr => hr.TimeStamp);
         lastSync.AddMicroseconds(1);
         await JS.InvokeAsync<Task>("set_data", labels, data, body_temp, oxygen_temp);
+        //await JS.InvokeAsync<Task>("set_text", "Sweat", response.Sweats.Last().Level);
         StateHasChanged();
         }
         catch {
