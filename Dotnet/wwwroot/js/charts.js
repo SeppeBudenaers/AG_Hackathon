@@ -48,6 +48,8 @@ var Blood_Oxygen = []
     while (labels.length > 20) {
       labels.shift()
       data.shift()
+      Body_Temperature.shift()
+      Blood_Oxygen.shift()
     }
 
     console.log(labels)
