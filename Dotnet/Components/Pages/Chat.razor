@@ -58,6 +58,13 @@
 @code {
     public bool chatHidden = true;
     public List<ChatMessage> messages = new();
+    public Timer timer = null;
+
+
+    protected override void OnInitialized()
+    {
+        timer = new Timer(GetAnomoly, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+    }
 
     public void ToggleChat() {
         chatHidden = !chatHidden;
@@ -67,8 +74,13 @@
         chatHidden = newVal;
     }
 
-    public async void GetAnomoly(){
+    public void Dispose() {
+        timer?.Dispose();
+    }
+
+    public async void GetAnomoly(object? state){
         try {
+            Console.WriteLine("GetAnomoly");
             HttpClient client = HttpFactory.CreateClient("PythonWebServer");
             var response = await client.GetAsync("/anomaly");
 
@@ -77,6 +89,7 @@
 
             var receivedMessages = JsonSerializer.Deserialize<List<ChatMessage>>(content);
             messages.Add(receivedMessages.Last());
+
             if (chatHidden) ToggleChat();
         }
         catch {
