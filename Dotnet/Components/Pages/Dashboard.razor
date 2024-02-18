@@ -40,6 +40,7 @@
     }
 
     private async void LoadApi(){    
+        try {
         content = "Loading";
         @* HttpClient client = new HttpClient(); *@
 
@@ -70,6 +71,10 @@
         lastSync.AddMicroseconds(1);
         await JS.InvokeAsync<Task>("set_data", labels, data, body_temp, oxygen_temp);
         StateHasChanged();
+        }
+        catch {
+            return;
+        }
     }
 
 }
