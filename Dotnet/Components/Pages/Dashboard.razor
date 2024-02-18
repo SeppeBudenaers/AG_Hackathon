@@ -61,11 +61,9 @@
 
         var labels = response.Heart_Rate.Select(rate => rate.TimeStamp).ToList();
         var data = response.Heart_Rate.Select(rate => rate.HeartRate).ToList();
-
         lastSync = response.Heart_Rate.Max(hr => hr.TimeStamp);
         lastSync.AddMicroseconds(1);
-
-        await JS.InvokeAsync<Task>("set_data", labels, data);
+        await JS.InvokeAsync<Task>("set_data", labels, data, body_temp, oxygen_temp);
         StateHasChanged();
     }
 
