@@ -58,7 +58,7 @@
 @code {
     public bool chatHidden = true;
     public List<ChatMessage> messages = new();
-    public Timer timer = null;
+    public Timer? timer = null;
 
 
     protected override void OnInitialized()
@@ -91,6 +91,8 @@
             messages.Add(receivedMessages.Last());
 
             if (chatHidden) ToggleChat();
+            timer.Dispose();
+            timer = null;
         }
         catch {
             return;
