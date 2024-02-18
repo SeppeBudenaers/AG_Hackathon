@@ -66,4 +66,5 @@ public class GetResponse {
     // [JsonParameterName("Body_Temperature")]
     public BodyTemperature[] Body_Temperature {get;set;} = new BodyTemperature[0];
     public Heart_Rate[] Heart_Rate {get;set;} = new Heart_Rate[0];
+    public BloodOxygen[] Blood_Oxygen {get; set;} = new BloodOxygen[0];
 }
