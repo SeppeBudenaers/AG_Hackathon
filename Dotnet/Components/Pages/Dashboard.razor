@@ -24,7 +24,7 @@
     document.getElementById('button').click();
     interval = setInterval(function() {
         document.getElementById('button').click();
-    }, 10000);
+    }, 5000);
 </script>
 
 @code {
@@ -52,8 +52,12 @@
 
         var http_response = await client.GetAsync($"/?start_date={lastSync.ToString("yyyy-MM-dd HH:mm:ss")}&end_date={DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}");
         content = await http_response.Content.ReadAsStringAsync();
-
         Console.WriteLine($"content2: {content}");
+        
+        if (content.Trim().Length == 0)
+            return;
+
+        
 
         
         @* GetResponse response = JsonSerializer.Deserialize<GetResponse>(content); *@
