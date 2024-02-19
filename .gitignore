@@ -3,3 +3,4 @@ Dotnet/obj/
 *.pyc
 *.db
 */__pycache__/
+watch/node_modules/
