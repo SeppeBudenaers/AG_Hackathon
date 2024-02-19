@@ -1,0 +1,16 @@
+#chatButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+#chatWindow {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  z-index: 99;
+
+  height: auto;
+  overflow-y: scroll;
+}

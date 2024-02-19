@@ -1,0 +1,128 @@
+﻿@page "/"
+@inject IHttpClientFactory HttpFactory
+@inject IJSRuntime JS
+
+@rendermode InteractiveServer
+
+<PageTitle>Dashboard</PageTitle>
+
+<h1>Dashboard</h1>
+
+@* <p role="status">Response: @content</p> *@
+<button id="button" class="btn btn-primary" @onclick="LoadApi" hidden>LoadApi</button>
+<div id=alerts>
+    <div class="alert alert-danger" role="alert">
+        This is a danger alert—check it out!
+    </div>
+</div>
+<div class='row'>
+    <div class="card col-4">
+        <div style="text-align:center">
+    <img class="card-img-top" src="https://as2.ftcdn.net/v2/jpg/05/73/25/73/1000_F_573257334_yO14ZqKcCfJMq3KVQkC0je1gqtVAlsAV.webp" style="max-width:100px" alt="Card image cap">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Sweat</h5>
+        <p class="card-text">Level:</p>
+        <p id=Sweat class="card-text number"></p>
+    </div>
+    </div>
+    <div class="card col-4">
+        <div style="text-align:center">
+    <img class="card-img-top" src="/img/sugar.png" style="max-width:100px" alt="Card image cap">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Sugar</h5>
+        <p class="card-text">Level:</p>
+        <p id=Sugar class="card-text number"></p>
+    </div>
+    </div>
+    <div class="card col-4">
+        <div style="text-align:center">
+    <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/3285/3285977.png" style="max-width:100px" alt="Card image cap">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Emotion</h5>
+        <p class="card-text">Type:</p>
+        <p id=Emotion class="card-text number"></p>
+        <div style="text-align:center">
+    <img class="card-img-top" src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL3JtNTg2YmF0Y2gyLWVtb2ppLTAwNi5wbmc.png" style="max-width:100px" alt="Card image cap">
+    </div>
+    </div>
+    </div>
+</div>
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+<Chat />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="/js/charts.js"></script>
+
+<script>
+    document.getElementById('button').click();
+    interval = setInterval(function() {
+        document.getElementById('button').click();
+    }, 5000);
+
+    function set_text(id, text){
+    document.getElementById(id).innerText=text;
+  }
+
+</script>
+
+
+@code {
+    private int currentCount = 0;
+    public string content = "Click on the button.";
+    public GetResponse? response = null;
+
+    public DateTime lastSync = DateTime.Now.AddDays(-1);
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    private async void LoadApi(){    
+        try {
+        content = "Loading";
+        @* HttpClient client = new HttpClient(); *@
+
+        Console.WriteLine(lastSync);
+
+        HttpClient client = HttpFactory.CreateClient("PythonWebServer");
+        Console.WriteLine($"content1: {content}");
+
+        Console.WriteLine($"/?start_date={lastSync.ToString("yyyy-MM-dd HH:mm:ss")}&end_date={DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}");
+
+        var http_response = await client.GetAsync($"/?start_date={lastSync.ToString("yyyy-MM-dd HH:mm:ss")}&end_date={DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}");
+        content = await http_response.Content.ReadAsStringAsync();
+        Console.WriteLine($"content2: {content}");
+        
+        if (content.Trim().Length == 0)
+            return;
+
+        
+        @* GetResponse response = JsonSerializer.Deserialize<GetResponse>(content); *@
+        response = JsonSerializer.Deserialize<GetResponse>(content);
+
+        var labels = response.Heart_Rate.Select(rate => rate.TimeStamp).ToList();
+        var data = response.Heart_Rate.Select(rate => rate.HeartRate).ToList();
+        var body_temp = response.Body_Temperature.Select(rate => rate.Temperature).ToList();
+        var oxygen_temp = response.Blood_Oxygen.Select(rate => rate.Oxygen).ToList();
+
+        lastSync = response.Heart_Rate.Max(hr => hr.TimeStamp);
+        lastSync.AddMicroseconds(1);
+        await JS.InvokeAsync<Task>("set_data", labels, data, body_temp, oxygen_temp);
+            Console.WriteLine(response.Sweat.Length);
+            Random rand = new Random();
+        await JS.InvokeAsync<Task>("set_text", "Sweat", rand.Next(10,30));
+        await JS.InvokeAsync<Task>("set_text", "Sugar", rand.Next(10,30));
+        StateHasChanged();
+        }
+        catch {
+            return;
+        }
+    }
+
+}

@@ -1,0 +1,13 @@
+{
+    "Body_Temperature": 37,
+    "Heart_Rate" : 80,
+    "Systolic": 0,
+    "Diastolic": 0,
+    "Oxygen_Saturation": 98,
+    "Respiratory_Rate": 20,
+    "Sweat": 0,
+    "Sugar": 0,
+    "Steps": 10000,
+    "Emotion": "Happy",
+    "Stress": 0
+}
